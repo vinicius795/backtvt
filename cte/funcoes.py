@@ -6,8 +6,6 @@ from cte.models import CTE
 
 import os
 import simplejson as json
-import csv
-import io
 
 
 def updatexml(request):
