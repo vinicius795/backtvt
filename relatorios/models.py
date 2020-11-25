@@ -17,7 +17,6 @@ class ENTREGA(models.Model):
 
     def __str__(self):
         return self.id
-        pass
 
     class Meta:
         db_table = ''

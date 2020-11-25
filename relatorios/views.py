@@ -4,4 +4,5 @@ from relatorios.serializers import *
 
 
 class EntregaDetail(generics.RetrieveUpdateDestroyAPIView):
-    pass
+    queryset = ENTREGA.objects.all()
+    serializers_class = EntregaSerializer

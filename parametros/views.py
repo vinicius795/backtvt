@@ -1,3 +1,3 @@
 from django.shortcuts import render
-
-# Create your views here.
+from parametros.serializers import *
+from parametros.models import *

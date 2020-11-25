@@ -4,12 +4,15 @@ from funcionarios.serializers import *
 
 
 class FuncionariosList(generics.ListCreateAPIView):
-    pass
+    queryset = FUNCIONARIOS.objects.all()
+    serializers_class = FuncionariosSerializer
 
 
 class FuncionariosDetail(generics.RetrieveUpdateDestroyAPIView):
-    pass
+    queryset = FUNCIONARIOS.objects.all()
+    serializers_class = FuncionariosSerializer
 
 
 class CargosList(generics.ListCreateAPIView):
-    pass
+    queryset = CARGOS.objects.all()
+    serializers_class = FuncionariosSerializer

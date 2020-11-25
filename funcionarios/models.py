@@ -19,7 +19,7 @@ class CARGOS(models.Model):
 class FUNCIONARIOS(models.Model):
 
     NOME = models.CharField(max_length=255)
-    SOBRE_NOME = models.CharField(max_length=255)
+    SOBRENOME = models.CharField(max_length=255)
     CARGO = models.ManyToManyField(CARGOS)
     USUARIO = models.ForeignKey(
         User,
@@ -31,7 +31,7 @@ class FUNCIONARIOS(models.Model):
 
     def __str__(self):
         nome = self.NOME
-        sobrenome = self.SOBRE_NOME
+        sobrenome = self.SOBRENOME
         ret = str(nome + " " + sobrenome)
         return ret
         pass

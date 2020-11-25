@@ -1,6 +1,6 @@
 from django.db import models
 
-class DACTE(models.Model):
+class CTE(models.Model):
 
     NR_DACTE = models.CharField(max_length=44, unique=True)
     REMETENTE = models.CharField(max_length=255)
