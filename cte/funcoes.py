@@ -6,14 +6,18 @@ from cte.models import CTE
 
 import os
 import simplejson as json
+import csv
+import io
 
 
 def updatexml(request):
     pass
 
 
-def updatecsv(request):
-    csv_file = request.FILES['arquivossw']
+
+
+def updatecsv():
+    csv_file = 'arquivossw'
     cabeca = []
     lista = []
     n_registros = 0
@@ -40,24 +44,19 @@ def updatecsv(request):
             lista.append(itens)
 
     for x in lista:
-        try:
-            CTE(
-                NR_DACTE=x['Chave CTe'],
-                REMETENTE=x['Cliente Remetente'],
-                DESTINATARIO=x['Cliente Destinatario'],
-                NR_CONTROLE=x['CTRC'],
-                VALOR=float(x['Valor do Frete'].replace(",", ".").strip()),
-                NFE=x['Numero da Nota Fiscal'],
-            ).save()
-            n_registros += 1
-
-        except IntegrityError:
-            continue
-
+        Addcte(
+            cte=x['Chave CTe'],
+            remetente=x['Cliente Remetente'],
+            destinatario=x['Cliente Destinatario'],
+            nrcontrole=x['CTRC'],
+            valor=float(x['Valor do Frete'].replace(",", ".").strip()),
+            nfe=x['Numero da Nota Fiscal'],
+        )
+        n_registros += 1
     return HttpResponse(n_registros)
 
 
-def updatedbf(request):
+def updatedbf():
     try:
         os.system(
             "mount - t cifs // 10.1.1.20/db / mnt/servidor/db - o username=eneida2, password=ca*3ki, vers='1.0'")
@@ -71,16 +70,47 @@ def updatedbf(request):
     for record in table:
         linha = dict(record)
         if int(str(linha["NRCONH_CH"])) >= 650000:
-            try:
-                CTE(
-                    NR_DACTE=linha['DACTE'],
-                    REMETENTE=linha['REM_CH'],
-                    DESTINATARIO=linha['DEST_CH'],
-                    NR_CONTROLE=linha['NRCONH_CH'],
-                    VALOR=float(linha['TOTFRETE']),
-                    NFE=linha['NF_REC'],
-                ).save()
-                n_registros += 1
-            except IntegrityError:
-                continue
+            Addcte(
+                cte=linha['DACTE'],
+                remetente=linha['REM_CH'],
+                destinatario=linha['DEST_CH'],
+                nrcontrole=linha['NRCONH_CH'],
+                valor=float(linha['TOTFRETE']),
+                nfe=linha['NF_REC'],
+            )
+            n_registros += 1
     return HttpResponse(n_registros)
+
+class Addcte():
+
+    def __init__(self, tipo, arquivo):
+        self.tipo = tipo
+        self.dados = dados
+        self.arquivo = arquivo
+        self.nregistros = 0
+    
+    def add(self, **kwargs):
+        try:
+            CTE(
+                NR_DACTE=kwargs.get('cte'),
+                REMETENTE=kwargs.get('remetente'),
+                DESTINATARIO=kwargs.get('destinatario'),
+                NR_CONTROLE=kwargs.get('nrcontrole'),
+                VALOR=kwargs.get('valor'),
+                NFE=kwargs.get('nfe'),
+            ).save()
+            self.nregistros += 1
+        except IntegrityError:
+            pass
+    
+    def csv(self):
+        pass
+
+    def dbf(self):
+        pass
+
+
+    if (tipo == 'csv'):
+        csv()
+    elif (tipo == 'dbf'):
+        dbf()
