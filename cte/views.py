@@ -22,7 +22,6 @@ class AddCTE(APIView):
     def __init__(self, *args, **kwargs):
         super(AddCTE, self).__init__(*args, **kwargs)
     
-
     def post(self, request, filename, format=None):
         serializers_class = CTESerializer()
         csv_file = request.FILES['arquivossw']
@@ -76,13 +75,13 @@ class AddCTE(APIView):
 
         serializers_class = CTESerializer()
         #table = DBF("/mnt/servidor/db/CONHEC.dbf", encoding="charmap")
-        table = dbf.Table(filename="D:/tvt/CONHEC.dbf")
+        table = dbf.Table(filename="E:/tvt/CONHEC.dbf")
         table.open()
-        inicio = len(table)-100
+        first = len(table)-100
         last = len(table)
         n_registros = 0
         #for record, x in zip(table, range(200)):
-        for linha in table[inicio:last]:
+        for linha in table[first:last]:
             dados = {
                 'NR_DACTE': linha['DACTE'],
                 'REMETENTE': linha['REM_CH'],
