@@ -13,7 +13,8 @@ class FuncionariosSerializer(serializers.ModelSerializer):
         lista_cargos = validated_data.pop("CARGO")
         novo_funcionario = FUNCIONARIOS.objects.create(**validated_data)
         for x in lista_cargos:
-            novo_funcionario.CARGO.add(CARGOS.objects.get(pk=x))
+            print(x)
+            novo_funcionario.CARGO.add(CARGOS.objects.get(CARGO=x))
         return novo_funcionario
 
     def update(self, instance, validated_data):
