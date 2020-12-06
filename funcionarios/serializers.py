@@ -9,11 +9,9 @@ class FuncionariosSerializer(serializers.ModelSerializer):
         fields = ['id', 'NOME', 'SOBRENOME', 'CARGO', 'USUARIO', 'SITUACAO']
 
     def create(self, validated_data):
-        print(validated_data)
         lista_cargos = validated_data.pop("CARGO")
         novo_funcionario = FUNCIONARIOS.objects.create(**validated_data)
         for x in lista_cargos:
-            print(x)
             novo_funcionario.CARGO.add(CARGOS.objects.get(CARGO=x))
         return novo_funcionario
 
