@@ -1,5 +1,10 @@
 from cte.models import *
 from cte.serializers import *
+
+from parametros.models import Parametros
+
+from datetime import datetime
+
 import dbf
 import os
 
@@ -32,3 +37,8 @@ def updatesp():
             serializer_class.create(validated_data=dados)
         except:
             pass
+    agora = datetime.now()
+    lastsincsp = Parametros.objects.get(parametro="lastsincsp")
+    lastsincsp.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
+    print(lastsincsp.valor)
+    lastsincsp.save()

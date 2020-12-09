@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from cte import views
 
 urlpatterns = [
-    path('<int:NR_DACTE>/', views.CTEDetail.as_view()),
+    path('<str:modo>/<int:valor>/', views.CTEDetail.as_view()),
     path('add', views.AddCTE.as_view()),
 ]
 

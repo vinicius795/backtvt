@@ -18,7 +18,13 @@ from rest_framework.response import Response
 class CTEDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
-    lookup_field = 'NR_DACTE'
+    def get(self, request, modo, valor):
+        if ( modo == "dacte"):
+            queryset = CTE.objects.get(NR_DACTE=valor)
+        elif( modo == "id"):
+            queryset = CTE.objects.get(pk=valor)
+        serializer = CTESerializer(queryset)
+        return Response(serializer.data)
 
 
 class AddCTE(generics.ListCreateAPIView):

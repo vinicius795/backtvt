@@ -13,14 +13,10 @@ class FuncionariosList(generics.ListCreateAPIView):
         if cargo:
             queryset = FUNCIONARIOS.objects.filter(
                 CARGO__id=CARGOS.objects.get(CARGO__icontains=cargo).id, SITUACAO=1)
-            serializer = FuncionariosSerializer(
-                queryset, many=True)
-            return Response(serializer.data)
         elif cargo == "":
             queryset = FUNCIONARIOS.objects.all()
-            serializer = FuncionariosSerializer(
-                queryset, many=True)
-            return Response(serializer.data)
+        serializer = FuncionariosSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class FuncionariosDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = FUNCIONARIOS.objects.all()
