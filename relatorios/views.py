@@ -6,3 +6,7 @@ from relatorios.serializers import *
 class EntregaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ENTREGA.objects.all()
     serializers_class = EntregaSerializer
+
+class EntregaSave(generics.CreateAPIView):
+    queryset = ENTREGA.objects.all()
+    serializers_class = EntregaSerializer
