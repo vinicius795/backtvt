@@ -9,3 +9,7 @@ class parametro(generics.RetrieveUpdateDestroyAPIView):
     queryset = Parametros.objects.all()
     serializer_class = ParametrosSerializer
     lookup_field = 'parametro'
+
+class addparametro(generics.ListCreateAPIView):
+  queryset = Parametros.objects.all()
+  serializer_class = ParametrosSerializer

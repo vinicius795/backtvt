@@ -4,6 +4,7 @@ from parametros import views
 
 urlpatterns = [
     path('<str:parametro>', views.parametro.as_view())
+    path('add/', views.addparametro.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
