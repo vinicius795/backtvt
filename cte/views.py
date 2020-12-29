@@ -13,7 +13,9 @@ from rest_framework.response import Response
 #import io
 #import os
 
-
+class ctelist(generics.ListAPIView):
+  queryset = CTE.objects.all()
+  serializer_class = CTESerializer
 
 class CTEDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CTE.objects.all()
