@@ -7,7 +7,6 @@ class CARGOS(models.Model):
 
     def __str__(self):
         return self.CARGO
-        pass
 
     class Meta:
         db_table = ''
@@ -28,13 +27,6 @@ class FUNCIONARIOS(models.Model):
         null=True,
     )
     SITUACAO = models.BooleanField(default=1)
-
-    def __str__(self):
-        nome = self.NOME
-        sobrenome = self.SOBRENOME
-        ret = str(nome + " " + sobrenome)
-        return ret
-        pass
 
     class Meta:
         db_table = ''

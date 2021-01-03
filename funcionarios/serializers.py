@@ -2,7 +2,17 @@ from rest_framework import serializers
 from funcionarios.models import *
 
 
+class CargoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CARGOS
+        fields = ['id', 'CARGO']
+
+    def create(self, validated_data):
+        return CARGOS.objects.create(**validated_data)
+
 class FuncionariosSerializer(serializers.ModelSerializer):
+
+    CARGO = CargoSerializer(many=True)
 
     class Meta:
         model = FUNCIONARIOS
@@ -25,12 +35,3 @@ class FuncionariosSerializer(serializers.ModelSerializer):
         instance.SITUACAO = instance.validated_data.get(
             'situacao', instance.SITUACAO)
         return instance
-
-
-class CargoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CARGOS
-        fields = ['id', 'CARGO']
-
-    def create(self, validated_data):
-        return CARGOS.objects.create(**validated_data)
