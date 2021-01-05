@@ -10,3 +10,7 @@ class EntregaDetail(generics.RetrieveUpdateDestroyAPIView):
 class EntregaSave(generics.CreateAPIView):
     queryset = ENTREGA.objects.all()
     serializer_class = EntregaCreateSerializer
+
+class EntregaList(generics.ListAPIView):
+    queryset = ENTREGA.objects.all()
+    serializer_class = EntregaListSerializer

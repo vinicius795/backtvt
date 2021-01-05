@@ -10,9 +10,12 @@ from parametros.serializers import F_PAGAMENTOSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username']
+
+
+
+  class Meta:
+      model = User
+      fields = ['id', 'username']
 
 class CTE_FPagRetrieveSerializer(serializers.ModelSerializer):
   CTE = CTESerializer()
@@ -23,11 +26,11 @@ class CTE_FPagRetrieveSerializer(serializers.ModelSerializer):
     fields = ["CTE", "F_PAGAMENTO"]
 
 class EntregaRetrieveSerializer(serializers.ModelSerializer):
+
   USUARIO = UserSerializer()
   CTE_FPag = CTE_FPagRetrieveSerializer(many=True)
   FUNCIONARIOS = FuncionariosSerializer(many = True)
   VEICULO = VeiculosSerializer()
-
 
   class Meta:
       model = ENTREGA
@@ -80,6 +83,12 @@ class EntregaCreateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         pass
 
+class EntregaListSerializer(serializers.ModelSerializer):
+  USUARIO = UserSerializer()
+  class Meta:
+    model = ENTREGA
+    fields = ["id", 'USUARIO', "DATA"]
+
 
 {
     "USUARIO": 1,
@@ -88,21 +97,3 @@ class EntregaCreateSerializer(serializers.ModelSerializer):
     "OBS": "teste",
     "CTE_FPag": [{"CTE": 999, "F_PAGAMENTO": 1}, {"CTE": 998, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}]
 }
-"""
-{
-  'USUARIO': < User: vinicius >, 
-  'VEICULO': < VEICULOS: ABC-1234 > , 
-  'OBS': 'teste', 
-  'CTE_FPag': [
-    OrderedDict([
-      ('CTE', < CTE: CTE object (999) > ), 
-      ('F_PAGAMENTO', < F_PAGAMENTO: F_PAGAMENTO object (1) > )]),
-    OrderedDict([
-      ('CTE', < CTE: CTE object (998) > ),
-      ('F_PAGAMENTO', < F_PAGAMENTO: F_PAGAMENTO object (1) > )]), 
-    OrderedDict([
-      ('CTE', < CTE: CTE object (997) > ), 
-      ('F_PAGAMENTO', < F_PAGAMENTO: F_PAGAMENTO object (1) > )])
-    ]
-  }
-"""

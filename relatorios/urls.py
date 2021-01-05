@@ -4,7 +4,8 @@ from relatorios import views
 
 urlpatterns = [
     path('entrega/<int:pk>', views.EntregaDetail.as_view()),
-    path('entrega/save', views.EntregaSave.as_view())
+    path('entrega/save', views.EntregaSave.as_view()),
+    path('entrega/list', views.EntregaList.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
