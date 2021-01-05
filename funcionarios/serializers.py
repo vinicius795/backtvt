@@ -2,6 +2,13 @@ from rest_framework import serializers
 from funcionarios.models import *
 
 
+class VeiculosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =VEICULOS
+        fields = ["id", 'REFERENCIA', 'MODELO', "PLACA"]
+    
+
+
 class CargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CARGOS

@@ -28,6 +28,9 @@ class FUNCIONARIOS(models.Model):
     )
     SITUACAO = models.BooleanField(default=1)
 
+    def __str__(self):
+        return "%s %s" % (self.NOME, self.SOBRENOME)
+
     class Meta:
         db_table = ''
         managed = True

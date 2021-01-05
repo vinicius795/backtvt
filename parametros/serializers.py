@@ -12,3 +12,8 @@ class ParametrosSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.valor = validated_data.get("valor", instance.valor)
         return instance
+
+class F_PAGAMENTOSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = F_PAGAMENTO
+        fields = ["id", "metodo"]
