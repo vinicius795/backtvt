@@ -13,3 +13,7 @@ class parametro(generics.RetrieveUpdateDestroyAPIView):
 class addparametro(generics.ListCreateAPIView):
   queryset = Parametros.objects.all()
   serializer_class = ParametrosSerializer
+
+class addpagamento(generics.ListCreateAPIView):
+  queryset = F_PAGAMENTO.objects.all()
+  serializer_class = F_PAGAMENTOSerializer
