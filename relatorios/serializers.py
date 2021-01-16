@@ -1,21 +1,12 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
 from relatorios.models import *
 from cte.models import *
 from funcionarios.models import *
 from parametros.models import F_PAGAMENTO
-from funcionarios.serializers import CargoSerializer, FuncionariosSerializer, VeiculosSerializer
+from funcionarios.serializers import CargoSerializer, FuncionariosSerializerList, VeiculosSerializer
 from cte.serializers import CTESerializer
-from parametros.serializers import F_PAGAMENTOSerializer
+from parametros.serializers import F_PAGAMENTOSerializer, UserSerializer 
 
-
-class UserSerializer(serializers.ModelSerializer):
-
-
-
-  class Meta:
-      model = User
-      fields = ['id', 'username']
 
 class CTE_FPagRetrieveSerializer(serializers.ModelSerializer):
   CTE = CTESerializer()
@@ -29,7 +20,7 @@ class EntregaRetrieveSerializer(serializers.ModelSerializer):
 
   USUARIO = UserSerializer()
   CTE_FPag = CTE_FPagRetrieveSerializer(many=True)
-  FUNCIONARIOS = FuncionariosSerializer(many = True)
+  FUNCIONARIOS = FuncionariosSerializerList(many = True)
   VEICULO = VeiculosSerializer()
 
   class Meta:

@@ -14,7 +14,6 @@ class CARGOS(models.Model):
         verbose_name = 'CARGOS'
         verbose_name_plural = 'CARGOSs'
 
-
 class FUNCIONARIOS(models.Model):
 
     NOME = models.CharField(max_length=255)
@@ -26,7 +25,7 @@ class FUNCIONARIOS(models.Model):
         blank=True,
         null=True,
     )
-    SITUACAO = models.BooleanField(default=1)
+    SITUACAO = models.BooleanField(default=True)
 
     def __str__(self):
         return "%s %s" % (self.NOME, self.SOBRENOME)
@@ -36,7 +35,6 @@ class FUNCIONARIOS(models.Model):
         managed = True
         verbose_name = 'FUNCIONARIOS'
         verbose_name_plural = 'FUNCIONARIOSs'
-
 
 class VEICULOS(models.Model):
 

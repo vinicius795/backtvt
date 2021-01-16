@@ -5,9 +5,9 @@ from funcionarios.models import *
 from funcionarios.serializers import *
 
 
-class FuncionariosList(generics.ListCreateAPIView):
+class FuncionariosList(generics.ListAPIView):
     queryset = FUNCIONARIOS.objects.all()
-    serializer_class = FuncionariosSerializer
+    serializer_class = FuncionariosSerializerList
 
     def list(self, request, cargo=""):
         if cargo:
@@ -15,13 +15,16 @@ class FuncionariosList(generics.ListCreateAPIView):
                 CARGO__id=CARGOS.objects.get(CARGO__icontains=cargo).id, SITUACAO=1)
         elif cargo == "":
             queryset = FUNCIONARIOS.objects.all()
-        serializer = FuncionariosSerializer(queryset, many=True)
+        serializer = FuncionariosSerializerList(queryset, many=True)
         return Response(serializer.data)
 
 class FuncionariosDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = FUNCIONARIOS.objects.all()
-    serializer_class = FuncionariosSerializer
+    serializer_class = FuncionariosSerializerList
 
+class FuncionariosCreate(generics.CreateAPIView):
+    queryset = FUNCIONARIOS.objects.all()
+    serializer_class = FuncionariosSerializerAdd
 
 class CargosList(generics.ListCreateAPIView):
     queryset = CARGOS.objects.all()

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from funcionarios.models import *
+from parametros.serializers import UserSerializer
 
 
 class VeiculosSerializer(serializers.ModelSerializer):
@@ -7,8 +8,6 @@ class VeiculosSerializer(serializers.ModelSerializer):
         model =VEICULOS
         fields = ["id", 'REFERENCIA', 'MODELO', "PLACA"]
     
-
-
 class CargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CARGOS
@@ -17,9 +16,7 @@ class CargoSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return CARGOS.objects.create(**validated_data)
 
-class FuncionariosSerializer(serializers.ModelSerializer):
-
-    CARGO = CargoSerializer(many=True)
+class FuncionariosSerializerAdd(serializers.ModelSerializer):
 
     class Meta:
         model = FUNCIONARIOS
@@ -42,3 +39,12 @@ class FuncionariosSerializer(serializers.ModelSerializer):
         instance.SITUACAO = instance.validated_data.get(
             'situacao', instance.SITUACAO)
         return instance
+
+class FuncionariosSerializerList(serializers.ModelSerializer):
+
+    CARGO = CargoSerializer(many=True)
+    USUARIO = UserSerializer()
+
+    class Meta:
+        model = FUNCIONARIOS
+        fields = ['id', 'NOME', 'SOBRENOME', 'CARGO', 'USUARIO', 'SITUACAO']
