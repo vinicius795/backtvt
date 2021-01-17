@@ -1,12 +1,25 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from relatorios.models import *
 from cte.models import *
 from funcionarios.models import *
 from parametros.models import F_PAGAMENTO
 from funcionarios.serializers import CargoSerializer, FuncionariosSerializerList, VeiculosSerializer
 from cte.serializers import CTESerializer
-from parametros.serializers import F_PAGAMENTOSerializer, UserSerializer 
+from parametros.serializers import F_PAGAMENTOSerializer
 
+class FuncaoFuncionarioSerializer(serializers.ModelSerializer):
+  FUNCIONARIO = FuncionariosSerializerList()
+  FUNCAO = CargoSerializer()
+  class Meta:
+    model = FuncaoFUNCIONARIOS
+    fields = ['id', 'FUNCIONARIO', 'FUNCAO']
+
+class UserSerializer(serializers.ModelSerializer):
+
+  class Meta:
+      model = User
+      fields = ['id', 'username']
 
 class CTE_FPagRetrieveSerializer(serializers.ModelSerializer):
   CTE = CTESerializer()
@@ -20,7 +33,7 @@ class EntregaRetrieveSerializer(serializers.ModelSerializer):
 
   USUARIO = UserSerializer()
   CTE_FPag = CTE_FPagRetrieveSerializer(many=True)
-  FUNCIONARIOS = FuncionariosSerializerList(many = True)
+  FUNCIONARIOS = FuncaoFuncionarioSerializer(many = True)
   VEICULO = VeiculosSerializer()
 
   class Meta:
@@ -44,6 +57,7 @@ class CTE_FPagSerializer(serializers.ModelSerializer):
 class EntregaCreateSerializer(serializers.ModelSerializer):
 
     CTE_FPag = CTE_FPagSerializer(many= True)
+    FUNCIONARIOS = FuncaoFuncionarioSerializer(many=True)
 
     class Meta:
         model = ENTREGA
@@ -62,11 +76,15 @@ class EntregaCreateSerializer(serializers.ModelSerializer):
       lista_func = validated_data.pop('FUNCIONARIOS')
       novo_relatorio = ENTREGA.objects.create(**validated_data)
       for x in lista_func:
-        novo_relatorio.FUNCIONARIOS.add(FUNCIONARIOS.objects.get(pk=x.id))
+        n_ffunc = FuncaoFUNCIONARIOS.objects.create(
+            FUNCIONARIO=FUNCIONARIOS.objects.get(pk=list(x.items())[0][1].id),
+            FUNCAO=CARGOS.objects.get(pk=list(x.items())[1][1].id)
+        )
+        novo_relatorio.FUNCIONARIOS.add(n_ffunc)
       for x in lista_cte:
         n_ctefpag = CTE_FPag.objects.create(
-          CTE = CTE.objects.get(pk=list(x.items())[0][1].id),
-          F_PAGAMENTO = F_PAGAMENTO.objects.get(pk=list(x.items())[1][1].id)
+            CTE=CTE.objects.get(pk=list(x.items())[0][1].id),
+            F_PAGAMENTO = F_PAGAMENTO.objects.get(pk=list(x.items())[1][1].id)
           )
         novo_relatorio.CTE_FPag.add(n_ctefpag)
       return novo_relatorio
