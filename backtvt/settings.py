@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'funcionarios',
     'parametros',
     'relatorios',
-    'front',
 ]
 
 MIDDLEWARE = [
