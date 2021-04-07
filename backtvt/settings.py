@@ -58,9 +58,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
+    'http://localhost',
     'http://localhost:4200',
     'http://200.195.182.36:4200',
-    'http://200.195.182.36'
+    'http://200.195.182.36',
+    'http://*'
 )
 
 ROOT_URLCONF = 'backtvt.urls'

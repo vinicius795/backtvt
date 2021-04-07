@@ -2,11 +2,7 @@
 
 dependences
 
-pip install djangorestframework
-pip install markdown       # Markdown support for the browsable API.
-pip install django-filter
-pip install django-cors-headers
-pip install dbf
+sudo apt-get install libapache2-mod-wsgi-py3
 
-
-pip3 install djangorestframework markdown django-filter django-cors-headers dbf
+pip install django djangorestframework markdown django-filter django-cors-headers dbf
+pip3 install django djangorestframework markdown django-filter django-cors-headers dbf

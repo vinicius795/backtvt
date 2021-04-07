@@ -8,9 +8,19 @@ from funcionarios.serializers import CargoSerializer, FuncionariosSerializerList
 from cte.serializers import CTESerializer
 from parametros.serializers import F_PAGAMENTOSerializer
 
-class FuncaoFuncionarioSerializer(serializers.ModelSerializer):
+
+
+class FuncaoFuncionarioSerializerRetriving(serializers.ModelSerializer):
   FUNCIONARIO = FuncionariosSerializerList()
   FUNCAO = CargoSerializer()
+  class Meta:
+    model = FuncaoFUNCIONARIOS
+    fields = ['id', 'FUNCIONARIO', 'FUNCAO']
+
+class FuncaoFuncionarioSerializer(serializers.ModelSerializer):
+  #FUNCIONARIO = FuncionariosSerializerList()
+  #FUNCAO = CargoSerializer()
+
   class Meta:
     model = FuncaoFUNCIONARIOS
     fields = ['id', 'FUNCIONARIO', 'FUNCAO']
@@ -33,7 +43,7 @@ class EntregaRetrieveSerializer(serializers.ModelSerializer):
 
   USUARIO = UserSerializer()
   CTE_FPag = CTE_FPagRetrieveSerializer(many=True)
-  FUNCIONARIOS = FuncaoFuncionarioSerializer(many = True)
+  FUNCIONARIOS = FuncaoFuncionarioSerializerRetriving(many = True)
   VEICULO = VeiculosSerializer()
 
   class Meta:
@@ -102,7 +112,7 @@ class EntregaListSerializer(serializers.ModelSerializer):
 {
     "USUARIO": 1,
     "VEICULO": 1,
-    "FUNCIONARIOS": [3, 5],
+    "FUNCIONARIOS": [{"FUNCAO": 1, "FUNCIONARIO":3}],
     "OBS": "teste",
-    "CTE_FPag": [{"CTE": 999, "F_PAGAMENTO": 1}, {"CTE": 998, "F_PAGAMENTO": 2}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}, {"CTE": 997, "F_PAGAMENTO": 1}]
+    "CTE_FPag": [{"CTE": 999, "F_PAGAMENTO": 1}, {"CTE": 998, "F_PAGAMENTO": 2}, {"CTE": 997, "F_PAGAMENTO": 1}]
 }
