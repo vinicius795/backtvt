@@ -29,3 +29,7 @@ class FuncionariosCreate(generics.CreateAPIView):
 class CargosList(generics.ListCreateAPIView):
     queryset = CARGOS.objects.all()
     serializer_class = CargoSerializer
+
+class VeiculosList(generics.ListCreateAPIView):
+    queryset = VEICULOS.objects.all()
+    serializer_class = VeiculosSerializer

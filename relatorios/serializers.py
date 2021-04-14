@@ -8,8 +8,6 @@ from funcionarios.serializers import CargoSerializer, FuncionariosSerializerList
 from cte.serializers import CTESerializer
 from parametros.serializers import F_PAGAMENTOSerializer
 
-
-
 class FuncaoFuncionarioSerializerRetriving(serializers.ModelSerializer):
   FUNCIONARIO = FuncionariosSerializerList()
   FUNCAO = CargoSerializer()
@@ -18,9 +16,6 @@ class FuncaoFuncionarioSerializerRetriving(serializers.ModelSerializer):
     fields = ['id', 'FUNCIONARIO', 'FUNCAO']
 
 class FuncaoFuncionarioSerializer(serializers.ModelSerializer):
-  #FUNCIONARIO = FuncionariosSerializerList()
-  #FUNCAO = CargoSerializer()
-
   class Meta:
     model = FuncaoFUNCIONARIOS
     fields = ['id', 'FUNCIONARIO', 'FUNCAO']
