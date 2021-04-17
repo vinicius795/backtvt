@@ -90,12 +90,21 @@ WSGI_APPLICATION = 'backtvt.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tvt',
+        'PORT': '5433',
+        'HOST': "localhost",
+        'USER': "django",
+        'PASSWORD': "2eroVo08Wwtq",
+
     }
 }
-
+#2eroVo08Wwtq
 FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',

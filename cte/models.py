@@ -5,7 +5,7 @@ class CTE(models.Model):
     NR_DACTE = models.CharField(max_length=44, unique=True)
     REMETENTE = models.CharField(max_length=255)
     DESTINATARIO = models.CharField(max_length=255)
-    NR_CONTROLE = models.CharField(max_length=10)
+    NR_CONTROLE = models.CharField(max_length=12)
     VALOR = models.DecimalField(max_digits=11, decimal_places=2)
     VOLUMES = models.CharField(max_length=10)
     NFE = models.TextField()
