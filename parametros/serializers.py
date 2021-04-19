@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ParametrosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Parametros
-        fields = ['id', 'parametro', 'valor']
+        fields = ['parametro', 'valor']
 
     def create(self, validated_data):
         return Parametros.objects.create(**validated_data)

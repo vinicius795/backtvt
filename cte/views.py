@@ -2,8 +2,10 @@ from cte.models import *
 from cte.serializers import *
 from cte.funcoes import *
 
+from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework import generics
+from rest_framework import mixins
 #from rest_framework.views import APIView
 #from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
@@ -33,7 +35,14 @@ class AddCTE(generics.ListCreateAPIView):
     
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
-    
+    def post(self, request, *args, **kwargs):
+        try:
+            queryset = CTE.objects.get(
+                NR_DACTE=request.data['NR_DACTE'])
+            serializer = CTESerializer(queryset)
+            return Response(serializer.data)
+        except ObjectDoesNotExist:
+            return super().post(request, *args, **kwargs)
     def list(self, request):
         try:
             updatesp()

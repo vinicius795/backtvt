@@ -1,16 +1,26 @@
 from rest_framework import serializers
 from cte.models import *
+from datetime import datetime
+from parametros.models import Parametros
+from django.core.exceptions import ObjectDoesNotExist
 
 class CTESerializer(serializers.ModelSerializer):
     class Meta:
         model = CTE
         fields = ['id', 'NR_DACTE', 'REMETENTE', 'DESTINATARIO', 'NR_CONTROLE', 'VALOR', 'VOLUMES', 'NFE']
-    
+
     def create(self, validated_data):
+        agora = datetime.now()
+        lastsincssw = Parametros.objects.get(parametro="lastsincssw")
+        lastsincssw.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
+        lastsincssw.save()
         return CTE.objects.create(**validated_data)
+        
 
 
 """"
+
+{'NR_DACTE': '4121048942366900176757001000050945100270989', 'REMETENTE': 'VENNER LUMBER DO BRASIL LTDA', 'DESTINATARIO': 'PIU MOBILE ESTF LTDA', 'NR_CONTROLE': 'CTB167669-5', 'VALOR': Decimal('90.78'), 'VOLUMES': '1', 'NFE': '000002876'}
 {
     'NR_DACTE': '41201189423669001767570010000495291002695678',
     Chave CTe: "41171289423669001767570010000365921002428842�"
