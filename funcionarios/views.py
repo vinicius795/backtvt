@@ -30,7 +30,12 @@ class FuncionariosCreate(generics.CreateAPIView):
     queryset = FUNCIONARIOS.objects.all()
     serializer_class = FuncionariosSerializerAdd
 
-class CargosList(generics.ListCreateAPIView):
+class CargosList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = CARGOS.objects.all()
+    serializer_class = CargoSerializer
+
+class CargosAdd(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = CARGOS.objects.all()
     serializer_class = CargoSerializer
