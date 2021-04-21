@@ -16,7 +16,7 @@ class FuncionariosList(generics.ListAPIView):
             queryset = FUNCIONARIOS.objects.filter(
                 CARGO__id=CARGOS.objects.get(CARGO__icontains=cargo).id, SITUACAO=1)
         elif cargo == "":
-            queryset = FUNCIONARIOS.objects.all()
+            queryset = FUNCIONARIOS.objects.filter(SITUACAO=1)
         serializer = FuncionariosSerializerList(queryset, many=True)
         return Response(serializer.data)
 

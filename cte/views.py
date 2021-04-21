@@ -34,18 +34,28 @@ class CTEDetail(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 
+def lastsincssw():
+    agora = datetime.now()
+    lastsincssw = Parametros.objects.get(parametro="lastsincssw")
+    lastsincssw.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
+    lastsincssw.save()
+
+
 class AddCTE(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
+
     def post(self, request, *args, **kwargs):
         try:
             queryset = CTE.objects.get(
                 NR_DACTE=request.data['NR_DACTE'])
             serializer = CTESerializer(queryset)
+            lastsincssw()
             return Response(serializer.data)
         except ObjectDoesNotExist:
+            lastsincssw()
             return super().post(request, *args, **kwargs)
     def list(self, request):
         try:

@@ -10,10 +10,6 @@ class CTESerializer(serializers.ModelSerializer):
         fields = ['id', 'NR_DACTE', 'REMETENTE', 'DESTINATARIO', 'NR_CONTROLE', 'VALOR', 'VOLUMES', 'NFE']
 
     def create(self, validated_data):
-        agora = datetime.now()
-        lastsincssw = Parametros.objects.get(parametro="lastsincssw")
-        lastsincssw.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
-        lastsincssw.save()
         return CTE.objects.create(**validated_data)
         
 
