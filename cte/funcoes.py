@@ -22,7 +22,7 @@ def updatesp():
     n_registros = 0
     #for record, x in zip(table, range(200)):
     for linha in table[first:last]:
-        print(linha)
+        print(linha['DEST_CH'])
         # dados = {
         #     'NR_DACTE': linha['DACTE'],
         #     'REMETENTE': linha['REM_CH'],
