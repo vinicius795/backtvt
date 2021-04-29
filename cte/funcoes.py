@@ -22,16 +22,16 @@ def updatesp():
     n_registros = 0
     #for record, x in zip(table, range(200)):
     for linha in table[first:last]:
-        
-        dados = {
-            'NR_DACTE': linha['DACTE'],
-            'REMETENTE': linha['REM_CH'].decode('utf8'),
-            'DESTINATARIO': linha['DEST_CH'].decode('utf8'),
-            'NR_CONTROLE': linha['NRCONH_CH'],
-            'VALOR': float(linha['TOTFRETE']),
-            'VOLUMES': linha['QTVOL_CH'],
-            'NFE': linha['NF_REC']
-        }
+        print(linha)
+        # dados = {
+        #     'NR_DACTE': linha['DACTE'],
+        #     'REMETENTE': linha['REM_CH'],
+        #     'DESTINATARIO': linha['DEST_CH'],
+        #     'NR_CONTROLE': linha['NRCONH_CH'],
+        #     'VALOR': float(linha['TOTFRETE']),
+        #     'VOLUMES': linha['QTVOL_CH'],
+        #     'NFE': linha['NF_REC']
+        # }
         try:
             serializer_class.create(validated_data=dados)
         except:
