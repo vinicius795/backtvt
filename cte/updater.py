@@ -4,5 +4,5 @@ from cte import funcoes
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(funcoes.updatesp, 'interval', seconds=10)
+    scheduler.add_job(funcoes.updatesp, 'interval', minutes=15)
     scheduler.start()
