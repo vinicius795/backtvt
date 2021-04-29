@@ -5,6 +5,8 @@ from parametros.models import Parametros
 
 from datetime import datetime
 
+
+import json
 import dbf
 import os
 import time
@@ -20,10 +22,11 @@ def updatesp():
     n_registros = 0
     #for record, x in zip(table, range(200)):
     for linha in table[first:last]:
+        
         dados = {
             'NR_DACTE': linha['DACTE'],
             'REMETENTE': linha['REM_CH'],
-            'DESTINATARIO': str(linha['DEST_CH']),
+            'DESTINATARIO': json.dumps(linha['DEST_CH'], skipkeys=True),
             'NR_CONTROLE': linha['NRCONH_CH'],
             'VALOR': float(linha['TOTFRETE']),
             'VOLUMES': linha['QTVOL_CH'],
