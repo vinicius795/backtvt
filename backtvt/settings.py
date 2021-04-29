@@ -57,14 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
 ]
-
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost',
-    'http://localhost:4200',
-    'http://200.195.182.36:4200',
-    'http://200.195.182.36',
-    'http://*'
-)
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'backtvt.urls'
 
