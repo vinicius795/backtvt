@@ -16,14 +16,14 @@ def updatesp():
     serializer_class = CTESerializer()
     #table = DBF("/mnt/servidor/db/CONHEC.dbf", encoding="charmap")
     #table = dbf.Table(filename="D:/tvt/CONHEC.dbf")
-    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", encoding="charmap")
+    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf")
     table.open()
     first = len(table)-100
     last = len(table)
     n_registros = 0
     #for record, x in zip(table, range(200)):
     for linha in table[first:last]:
-        print(linha['DEST_CH'].encode("utf-8"))
+        print(type(linha['DEST_CH']))
         # dados = {
         #     'NR_DACTE': linha['DACTE'],
         #     'REMETENTE': linha['REM_CH'],
