@@ -13,7 +13,7 @@ import time
 def updatesp():
     serializer_class = CTESerializer()
     #table = dbf.Table(filename="D:/tvt/CONHEC.dbf")
-    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf ")
+    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf")
     table.open()
     first = len(table)-100
     last = len(table)
@@ -23,7 +23,7 @@ def updatesp():
         dados = {
             'NR_DACTE': linha['DACTE'],
             'REMETENTE': linha['REM_CH'],
-            'DESTINATARIO': linha['DEST_CH'],
+            'DESTINATARIO': str(linha['DEST_CH']),
             'NR_CONTROLE': linha['NRCONH_CH'],
             'VALOR': float(linha['TOTFRETE']),
             'VOLUMES': linha['QTVOL_CH'],
