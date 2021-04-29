@@ -91,7 +91,7 @@ DATABASES = {
     'default':{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tvt',
-        'PORT': '5433',
+        'PORT': '5432',
         'HOST': "localhost",
         'USER': "django",
         'PASSWORD': "2eroVo08Wwtq",
