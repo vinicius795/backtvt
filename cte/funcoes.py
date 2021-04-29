@@ -25,8 +25,8 @@ def updatesp():
         
         dados = {
             'NR_DACTE': linha['DACTE'],
-            'REMETENTE': linha['REM_CH'],
-            'DESTINATARIO': json.dumps(linha['DEST_CH'], skipkeys=True),
+            'REMETENTE': linha['REM_CH'].decode('utf8'),
+            'DESTINATARIO': linha['DEST_CH'].decode('utf8'),
             'NR_CONTROLE': linha['NRCONH_CH'],
             'VALOR': float(linha['TOTFRETE']),
             'VOLUMES': linha['QTVOL_CH'],
