@@ -7,6 +7,7 @@ from datetime import datetime
 
 import dbf
 import os
+import time
 
 
 def updatesp():
@@ -37,3 +38,4 @@ def updatesp():
     lastsincsp = Parametros.objects.get(parametro="lastsincsp")
     lastsincsp.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
     lastsincsp.save()
+    print("sp-ok")
