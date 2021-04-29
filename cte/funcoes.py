@@ -16,7 +16,7 @@ def updatesp():
     serializer_class = CTESerializer()
     #table = DBF("/mnt/servidor/db/CONHEC.dbf", encoding="charmap")
     #table = dbf.Table(filename="D:/tvt/CONHEC.dbf")
-    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", default_data_types="charmap")
+    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", default_data_types="utf-8")
     table.open()
     first = len(table)-100
     last = len(table)
