@@ -24,7 +24,7 @@ MEDIA_ROOT = "D:/Users/Vinicius P/Documents/sistematvt/files"
 SECRET_KEY = 'c0pzi13b)w%$@kwh5-d&_a12t0rph6n9aw(i!_z*gqzz11fyng'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
