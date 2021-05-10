@@ -20,7 +20,7 @@ class ENTREGA(models.Model):
     USUARIO = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     VEICULO = models.ForeignKey(VEICULOS, on_delete=models.DO_NOTHING)
     FUNCIONARIOS = models.ManyToManyField(FuncaoFUNCIONARIOS)
-    OBS = models.TextField()
+    OBS = models.TextField(blank=True, default='', null=True)
     DATA = models.DateTimeField(auto_now=True)
     CTE_FPag = models.ManyToManyField(CTE_FPag)
     ALTERACAO = models.ManyToManyField(Alteracoes, blank=True)
