@@ -22,8 +22,9 @@ class ENTREGA(models.Model):
     FUNCIONARIOS = models.ManyToManyField(FuncaoFUNCIONARIOS)
     OBS = models.TextField(blank=True, default='', null=True)
     DATA = models.DateTimeField(auto_now=True)
-    CTE_FPag = models.ManyToManyField(CTE_FPag)
+    CTE_FPag = models.ManyToManyField(CTE_FPag, blank=True)
     ALTERACAO = models.ManyToManyField(Alteracoes, blank=True)
+    printable = models.BooleanField(default=True)
 
     def __str__(self):
         return self.id
@@ -33,3 +34,9 @@ class ENTREGA(models.Model):
         managed = True
         verbose_name = 'ENTREGA'
         verbose_name_plural = 'ENTREGAs'
+
+class CTENotFound(models.Model):
+    
+    relatorio = models.ManyToManyField(ENTREGA)
+    cte = models.CharField(max_length=44, unique=True)
+    F_PAGAMENTO = models.ForeignKey(F_PAGAMENTO, on_delete=models.DO_NOTHING, default=1)

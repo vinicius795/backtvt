@@ -3,6 +3,7 @@ from cte.serializers import *
 
 from parametros.models import Parametros
 
+from relatorios.funcoes import checknotfound
 from datetime import datetime
 
 
@@ -40,4 +41,5 @@ def updatesp():
     lastsincsp = Parametros.objects.get(parametro="lastsincsp")
     lastsincsp.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
     lastsincsp.save()
+    checknotfound()
     print("sp-ok")
