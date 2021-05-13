@@ -1,10 +1,14 @@
 from relatorios.models import *
 from cte.models import CTE
+from rest_framework import serializers
+from django.core.exceptions import ObjectDoesNotExist
 
 import json
+import sys
 
 def checknotfound():
-    
+    id_valid = []
+    id_error = []
     relatorios = ENTREGA.objects.filter(printable = False)
     ok = True
     for x in relatorios :
@@ -17,8 +21,11 @@ def checknotfound():
                 )
                 x.CTE_FPag.add(_cte)
                 y.delete()
-            except:
+            except ObjectDoesNotExist:
                 ok = False
+                id_error.append({"_id": x.id, "msg": "CTE não encontrado no banco de dados", "n_cte": y.cte})
         if ok :
             x.printable = True
             x.save()
+            id_valid.append(x.id)
+    return {"succes": id_valid, "error": id_error}

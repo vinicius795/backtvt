@@ -28,5 +28,4 @@ class Missingcte(APIView):
     def get(self, request):
         
         if request.method == 'GET':
-            checknotfound()
-            return Response(status=status.HTTP_200_OK)
+            return Response(checknotfound())
