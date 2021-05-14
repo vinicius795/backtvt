@@ -73,7 +73,8 @@ class EntregaCreateSerializer(serializers.ModelSerializer):
           'FUNCIONARIOS',
           'OBS',
           'DATA',
-          'CTE_FPag'
+          'CTE_FPag',
+          'printable'
           ]
 
     def create(self, validated_data):

@@ -22,7 +22,6 @@ def updatesp():
     first = len(table)-100
     last = len(table)
     n_registros = 0
-    #for record, x in zip(table, range(200)):
     for linha in table[first:last]:
         dados = {
             'NR_DACTE': linha['DACTE'],
@@ -42,4 +41,3 @@ def updatesp():
     lastsincsp.valor = str(agora.strftime("%d/%m/%Y %H:%M"))
     lastsincsp.save()
     checknotfound()
-    print("sp-ok")

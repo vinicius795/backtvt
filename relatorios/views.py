@@ -2,11 +2,12 @@ from rest_framework import generics
 from relatorios.models import *
 from relatorios.serializers import *
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from relatorios.funcoes import checknotfound
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+import json
 
 class EntregaDetail(generics.RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -23,9 +24,21 @@ class EntregaList(generics.ListAPIView):
     queryset = ENTREGA.objects.all()
     serializer_class = EntregaListSerializer
 
-class Missingcte(APIView):
-    permission_classes = (IsAuthenticated,)
-    def get(self, request):
-        
-        if request.method == 'GET':
-            return Response(checknotfound())
+@api_view(['GET', 'POST', 'UPDATE'])
+# @permission_classes([IsAuthenticated])
+def missingcte(request):
+    if request.method == 'POST':
+        relatorio = ENTREGA.objects.get(pk=request.data['rel_id'])
+        for x in request.data['ctes']:
+            try:
+                ctenf = CTENotFound(
+                    cte = x["CTE"],
+                    F_PAGAMENTO =  F_PAGAMENTO.objects.get(pk = x["F_PAGAMENTO"])
+                )
+                ctenf.save()
+                ctenf.relatorio.add(relatorio)
+            except:
+                pass
+        return Response({})
+    if request.method == 'GET':
+        return Response(checknotfound())

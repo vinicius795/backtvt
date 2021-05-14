@@ -6,7 +6,9 @@ urlpatterns = [
     path('entrega/<int:pk>', views.EntregaDetail.as_view()),
     path('entrega/save', views.EntregaSave.as_view()),
     path('entrega/list', views.EntregaList.as_view()),
-    path('entrega/checkmissing', views.Missingcte.as_view()),
+    path('entrega/checkmissing', views.missingcte),
+    path('entrega/ctenf/add', views.missingcte),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

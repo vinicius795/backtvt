@@ -9,7 +9,9 @@ from rest_framework import mixins
 #from rest_framework.views import APIView
 #from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django.core.exceptions import ObjectDoesNotExist
 
 #import dbf
 #import csv
@@ -26,10 +28,22 @@ class CTEDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
     def get(self, request, modo, valor):
+        notfound ={
+            "Error": "Notfound",
+            "Type_searched": modo,
+            "Value": valor,
+            "Msg": "Item não encontrado no banco de dados"
+        }
         if ( modo == "dacte"):
-            queryset = CTE.objects.get(NR_DACTE=valor)
+            try:
+                queryset = CTE.objects.get(NR_DACTE=valor)
+            except ObjectDoesNotExist:
+                return Response(notfound, status= status.HTTP_404_NOT_FOUND)
         elif( modo == "id"):
-            queryset = CTE.objects.get(pk=valor)
+            try:
+                queryset = CTE.objects.get(pk=valor)
+            except ObjectDoesNotExist:
+                return Response(notfound, status=status.HTTP_404_NOT_FOUND)
         serializer = CTESerializer(queryset)
         return Response(serializer.data)
 
