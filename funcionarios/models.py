@@ -42,6 +42,7 @@ class VEICULOS(models.Model):
     REFERENCIA = models.CharField(max_length=255)
     MODELO = models.CharField(max_length=20)
     PLACA = models.CharField(max_length=8, blank=False, unique=True)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.PLACA
