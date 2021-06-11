@@ -21,6 +21,7 @@ api_url_patterns = [
     path('relatorios/', include('relatorios.urls')),
     path('parametros/', include('parametros.urls')),
     path('user/', UserAPIView.as_view(), name='user'),
+    path('login/', include(auth_patterns)),
 ]
 
 urlpatterns = [

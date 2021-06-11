@@ -20,7 +20,7 @@ class FuncionariosList(generics.ListAPIView):
         serializer = FuncionariosSerializerList(queryset, many=True)
         return Response(serializer.data)
 
-class FuncionariosDetail(generics.RetrieveUpdateDestroyAPIView):
+class FuncionariosDetail(generics.RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = FUNCIONARIOS.objects.all()
     serializer_class = FuncionariosSerializerList
@@ -29,6 +29,11 @@ class FuncionariosCreate(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = FUNCIONARIOS.objects.all()
     serializer_class = FuncionariosSerializerAdd
+
+class FuncionariosuUpdate(generics.UpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = FUNCIONARIOS.objects.all()
+    serializer_class = FuncionariosSerializerUpdate
 
 class CargosList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
@@ -40,7 +45,14 @@ class CargosAdd(generics.CreateAPIView):
     queryset = CARGOS.objects.all()
     serializer_class = CargoSerializer
 
+
 class VeiculosList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = VEICULOS.objects.all()
+    serializer_class = VeiculosSerializer
+
+
+class VeiculosEdit(generics.UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = VEICULOS.objects.all()
     serializer_class = VeiculosSerializer

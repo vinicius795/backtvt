@@ -6,7 +6,7 @@ from parametros.serializers import UserSerializer
 class VeiculosSerializer(serializers.ModelSerializer):
     class Meta:
         model =VEICULOS
-        fields = ["id", 'REFERENCIA', 'MODELO', "PLACA"]
+        fields = ["id", 'REFERENCIA', 'MODELO', "PLACA", "status"]
     
 class CargoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +34,7 @@ class FuncionariosSerializerAdd(serializers.ModelSerializer):
             novo_funcionario.CARGO.add(CARGOS.objects.get(CARGO=x))
         return novo_funcionario
 
-    def update(self, instance, validated_data):
+    """def update(self, instance, validated_data):
         instance.NOME = validated_data.get('nome', instance.NOME)
         instance.SOBRENOME = validated_data.get(
             'sobrenome', instance.SOBRENOME)
@@ -43,11 +43,19 @@ class FuncionariosSerializerAdd(serializers.ModelSerializer):
             'usuario', instance.USUARIO)
         instance.SITUACAO = instance.validated_data.get(
             'situacao', instance.SITUACAO)
-        return instance
+        return instance """
 
 class FuncionariosSerializerList(serializers.ModelSerializer):
 
     CARGO = CargoSerializer(many=True)
+    USUARIO = UserSerializer()
+
+    class Meta:
+        model = FUNCIONARIOS
+        fields = ['id', 'NOME', 'SOBRENOME', 'CARGO', 'USUARIO', 'SITUACAO']
+
+
+class FuncionariosSerializerUpdate(serializers.ModelSerializer):
     USUARIO = UserSerializer()
 
     class Meta:
