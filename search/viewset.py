@@ -55,16 +55,20 @@ def checktype(search_field):
         term = re.sub('\s', '', re.sub("nfe|NFE|nota|Nota", '', search_field))
         try:
             int(term)
+            query = CTE.objects.filter(NFE__icontains=term)
             return cte_search(query)
         except:
             return Response(status=500)
     
     else:
-        print(search_field)
         try:
-            # query = CTE.objects.filter(Q(DESTINATARIO__icontains=search_field) | Q(REMETENTE__icontains=search_field))
-            query = CTE.objects.annotate(search=SearchVector(
-                'NR_DACTE', 'REMETENTE', 'DESTINATARIO', 'NR_CONTROLE', 'NFE')).filter(search__icontains=search_field)
+            query = CTE.objects.filter(
+                Q(DESTINATARIO__icontains=search_field) | 
+                Q(REMETENTE__icontains=search_field) | 
+                Q(NFE__icontains=search_field) |
+                Q(NR_DACTE__icontains=search_field) | 
+                Q(NR_CONTROLE__icontains=search_field)
+                )
             return cte_search(query)
         except:
             return Response(status=404)
