@@ -64,7 +64,7 @@ def checktype(search_field):
         try:
             # query = CTE.objects.filter(Q(DESTINATARIO__icontains=search_field) | Q(REMETENTE__icontains=search_field))
             query = CTE.objects.annotate(search=SearchVector(
-                'NR_DACTE', 'REMETENTE', 'DESTINATARIO', 'NR_CONTROLE', 'NFE')).filter(search=search_field)
+                'NR_DACTE', 'REMETENTE', 'DESTINATARIO', 'NR_CONTROLE', 'NFE')).filter(search__icontains=search_field)
             return cte_search(query)
         except:
             return Response(status=404)
