@@ -20,12 +20,13 @@ api_url_patterns = [
     path('funcionarios/', include('funcionarios.urls')),
     path('relatorios/', include('relatorios.urls')),
     path('parametros/', include('parametros.urls')),
-    path('user/', UserAPIView.as_view(), name='user'),
+    path('search/', include('search.urls')),
     path('login/', include(auth_patterns)),
 ]
 
 urlpatterns = [
     path('login/', include(auth_patterns)),
+    path('user/', UserAPIView.as_view(), name='user'),
     path('admin/', include(admin_patterns)),
     path('api/', include(api_url_patterns))
 
