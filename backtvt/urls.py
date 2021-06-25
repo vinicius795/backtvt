@@ -5,6 +5,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from users.views import UserAPIView
+from users import urls as users_api_router
 
 admin_patterns = [
     path('', admin.site.urls)
@@ -21,6 +22,7 @@ api_url_patterns = [
     path('relatorios/', include('relatorios.urls')),
     path('parametros/', include('parametros.urls')),
     path('search/', include('search.urls')),
+    path('users/', include(users_api_router.router.urls)),
     path('login/', include(auth_patterns)),
 ]
 
