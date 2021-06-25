@@ -51,6 +51,11 @@ class VeiculosList(generics.ListCreateAPIView):
     queryset = VEICULOS.objects.all()
     serializer_class = VeiculosSerializer
 
+    def list(self, request, *args, **kwargs):
+        queryset = VEICULOS.objects.filter(status= True)
+        serializer_class = VeiculosSerializer(queryset, many=True)
+        return Response(serializer_class.data)
+
 
 class VeiculosEdit(generics.UpdateAPIView):
     permission_classes = (IsAuthenticated,)
