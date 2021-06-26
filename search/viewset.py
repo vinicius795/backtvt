@@ -15,7 +15,8 @@ class SearchViewset(viewsets.ViewSet):
     def list(self, request, search):
         return checktype(search)
 
-def checktype(search_field):
+def checktype(_search_field):
+    search_field = _search_field.lower()
 
     if(bool(re.match("^[a-zA-Z]{3}[0-9]", search_field))):
         # CTB167664-4
@@ -35,43 +36,57 @@ def checktype(search_field):
     elif(bool(re.match("[0-3][0-9][-][0-1][0-9][-][0-9][0-9]", search_field)) or bool(re.match("[0-3][0-9][-][0-1][0-9][-][2][0][0-9][0-9]", search_field)) or bool(re.match("[0-3][0-9][-][0-1][0-9]", search_field))):
         return date(search_field)
 
-    elif(bool(re.search("remetente|REMETENTE|Remetente", search_field))):
-        term = re.sub("\s", "", re.sub("remetente|REMETENTE|Remetente", "", search_field), 1)
+    elif(bool(re.search("remetente|rem", search_field))):
+        
+        term = re.sub("\s", "", re.sub("remetente|rem", "", search_field), 1)
         query = CTE.objects.filter(REMETENTE__icontains=term)
         try:
             return cte_search(query)
         except:
             return Response(status=404)
 
-    elif(bool(re.search("destinatario|DESTINATARIO|Destinatario", search_field))):
-        term = re.sub("\s", "", re.sub("destinatario|DESTINATARIO|Destinatario", "", search_field), 1)
+    elif(bool(re.search("destinatario|dest|des", search_field))):
+        term = re.sub("\s", "", re.sub("destinatario|dest|des", "", search_field), 1)
         query = CTE.objects.filter(DESTINATARIO__icontains=term)
         try:
             return cte_search(query)
         except:
             return Response(status=404)
 
-    elif(bool(re.search("nfe|NFE|nota|Nota", search_field))):
-        term = re.sub('\s', '', re.sub("nfe|NFE|nota|Nota", '', search_field))
+    elif(bool(re.search("nfe|nota|nf", search_field))):
+        term = re.sub('\s', '', re.sub("nfe|nota|nf", '', search_field))
         try:
             int(term)
             query = CTE.objects.filter(NFE__icontains=term)
             return cte_search(query)
         except:
             return Response(status=500)
-    
-    else:
+
+    elif(bool(re.search("relatorio|rel", search_field))):
+        term = int(re.sub('\s', '', re.sub("relatorio|rel", '', search_field)))
         try:
-            query = CTE.objects.filter(
-                Q(DESTINATARIO__icontains=search_field) | 
-                Q(REMETENTE__icontains=search_field) | 
-                Q(NFE__icontains=search_field) |
-                Q(NR_DACTE__icontains=search_field) | 
-                Q(NR_CONTROLE__icontains=search_field)
-                )
-            return cte_search(query)
+            query = ENTREGA.objects.get(pk=term)
+            return return_rel(query, many=False)
         except:
             return Response(status=404)
+
+    else:
+        try:
+            query = ENTREGA.objects.get(pk=int(search_field))
+            return return_rel(query, many=False)
+        except:
+            try:
+                query = CTE.objects.filter(
+                    Q(DESTINATARIO__icontains=search_field) | 
+                    Q(REMETENTE__icontains=search_field) | 
+                    Q(NFE__icontains=search_field) |
+                    Q(NR_DACTE__icontains=search_field) | 
+                    Q(NR_CONTROLE__icontains=search_field)
+                    )
+                return cte_search(query)
+
+            except:
+                return Response(status=404)
 
 def date(sch_field):
     try:
@@ -84,8 +99,7 @@ def date(sch_field):
             date_obj = _date_obj.replace(year=datetime.date.today().year)
     
     query = ENTREGA.objects.filter(DATA__date=date_obj)
-    serializer = EntregaRetrieveSerializer(query, many=True)
-    return Response(serializer.data)
+    return return_rel(query, many=True)
 
 def cte_search(query):
     serializer = CTESerializer(query, many=True)
@@ -95,3 +109,7 @@ def cte_search(query):
         rel.append(ENTREGA.objects.filter(CTE_FPag=x).values()[0])
     # rel = ENTREGA.objects.filter(CTE_FPag=fpga).values()
     return Response({'cte': serializer.data, "rel": rel})
+
+def return_rel(query, many):
+    serializer = EntregaRetrieveSerializer(query, many=many)
+    return Response(serializer.data)

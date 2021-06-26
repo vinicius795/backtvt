@@ -5,5 +5,7 @@ from search import viewset
 
 urlpatterns = [
     path("<str:search>", viewset.SearchViewset.as_view({'get': 'list'})),
+    path("data/<str:search>", viewset.SearchViewset.as_view({'get': 'list'})),
+    path("relatorio/<str:search>", viewset.SearchViewset.as_view({'get': 'list'})),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
