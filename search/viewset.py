@@ -102,13 +102,20 @@ def date(sch_field):
     return return_rel(query, many=True)
 
 def cte_search(query):
-    serializer = CTESerializer(query, many=True)
-    fpga = CTE_FPag.objects.filter(CTE=query[0])
-    rel = []
-    for x in fpga:
-        rel.append(ENTREGA.objects.filter(CTE_FPag=x).values()[0])
-    # rel = ENTREGA.objects.filter(CTE_FPag=fpga).values()
-    return Response({'cte': serializer.data, "rel": rel})
+    res = []
+    for idx, cte in enumerate(query):
+        serializer = CTESerializer(cte, many=False)
+        fpga = CTE_FPag.objects.filter(CTE=cte)
+        rel = []
+        last_id = 0
+        for x in fpga:
+            _rel = ENTREGA.objects.filter(CTE_FPag=x).values()[0]
+            if _rel['id'] != last_id:
+                rel.append(_rel)
+                last_id = _rel['id']
+        # rel = ENTREGA.objects.filter(CTE_FPag=fpga).values()
+        res.append({'cte': serializer.data, "rel": rel})
+    return Response(res)
 
 def return_rel(query, many):
     serializer = EntregaRetrieveSerializer(query, many=many)
