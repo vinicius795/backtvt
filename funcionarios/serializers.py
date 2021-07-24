@@ -11,7 +11,7 @@ class VeiculosSerializer(serializers.ModelSerializer):
 class CargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CARGOS
-        fields = ['id', 'CARGO', 'SHOW_RELATORIO']
+        fields = ['id', 'CARGO', 'SHOW_RELATORIO', 'status']
 
     def create(self, validated_data):
         return CARGOS.objects.create(**validated_data)
