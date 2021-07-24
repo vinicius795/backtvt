@@ -40,7 +40,7 @@ class CargosList(generics.ListAPIView):
     queryset = CARGOS.objects.all()
     serializer_class = CargoSerializer
 
-class CargosUpdate(generics.ListAPIView):
+class CargosUpdate(generics.UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = CARGOS.objects.all()
     serializer_class = CargoSerializer
