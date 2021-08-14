@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'parametros',
     'relatorios',
     'search',
+    'users',
 ]
 
 MIDDLEWARE = [

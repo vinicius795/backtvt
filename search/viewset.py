@@ -66,6 +66,7 @@ def checktype(_search_field):
         term = int(re.sub('\s', '', re.sub("relatorio|rel", '', search_field)))
         try:
             query = ENTREGA.objects.get(pk=term)
+            print(query)
             return return_rel(query, many=False)
         except:
             return Response(status=404)
