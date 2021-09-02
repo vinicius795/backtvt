@@ -16,8 +16,8 @@ import time
 def updatesp():
     serializer_class = CTESerializer()
     #table = dbf.Table(filename="E:/tvt/CONHEC.dbf", codepage="cp860")
-    #table = dbf.Table(filename="D:/tvt/CONHEC.dbf", codepage="cp860")
-    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", codepage="cp860")
+    table = dbf.Table(filename="D:/tvt/CONHEC.dbf", codepage="cp860")
+    #table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", codepage="cp860")
     table.open()
     first = len(table)-100
     last = len(table)

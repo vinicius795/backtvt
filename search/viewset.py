@@ -11,7 +11,7 @@ import re
 import datetime
 
 class SearchViewset(viewsets.ViewSet):
-    permission_classes = (IsAuthenticated,)
+    
     def list(self, request, search):
         return checktype(search)
 

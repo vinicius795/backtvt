@@ -10,22 +10,18 @@ from rest_framework.views import APIView
 import json
 
 class EntregaDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = (IsAuthenticated,)
     queryset = ENTREGA.objects.all()
     serializer_class = EntregaRetrieveSerializer
 
 class EntregaSave(generics.CreateAPIView):
-    permission_classes = (IsAuthenticated,)
     queryset = ENTREGA.objects.all()
     serializer_class = EntregaCreateSerializer
 
 class EntregaList(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
     queryset = ENTREGA.objects.all()
     serializer_class = EntregaListSerializer
 
 @api_view(['GET', 'POST', 'UPDATE'])
-@permission_classes([IsAuthenticated])
 def missingcte(request):
     if request.method == 'POST':
         relatorio = ENTREGA.objects.get(pk=request.data['rel_id'])

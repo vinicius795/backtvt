@@ -19,12 +19,10 @@ from django.core.exceptions import ObjectDoesNotExist
 #import os
 
 class ctelist(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
 
 class CTEDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
     def get(self, request, modo, valor):
@@ -56,7 +54,6 @@ def lastsincssw():
 
 
 class AddCTE(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
     
     queryset = CTE.objects.all()
     serializer_class = CTESerializer
