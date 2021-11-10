@@ -4,6 +4,8 @@ from rest_framework import serializers
 
 from .models import Profile
 
+import json
+
 class ProfileSerializer(serializers.ModelSerializer):
 
     user = serializers.HyperlinkedRelatedField(read_only=True, many=False, view_name='user-detail')
@@ -20,8 +22,8 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only = True, required=False)
     old_password = serializers.CharField(write_only=True, required=False)
 
-
     def validate(self, data):
+        
         request_method = self.context['request'].method
         password = data.get('password', None)
         if request_method == 'POST':
@@ -57,7 +59,8 @@ class UserSerializer(serializers.ModelSerializer):
 
         except Exception as err:
             raise serializers.ValidationError({"info": err})
-        return super(UserSerializer, self.update(instance, validated_data))
+
+        return super(UserSerializer, self).update(instance, validated_data)
 
     class Meta:
         model = User

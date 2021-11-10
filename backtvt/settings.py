@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
+    #'rest_framework.authtoken',
     'corsheaders',
     'cte.apps.CteConfig',
     'funcionarios',
@@ -53,10 +54,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -154,19 +156,20 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-
     'DEFAUL_AUTHENTICATION_CLASSES':(
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
 
-        'oauth2_provider.contib.rest_framework.OAuth2Authentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     )
 }
 
-AUTHENTICATION_BACKENDS = {
+AUTHENTICATION_BACKENDS = (
 
-    'django.contrib.auth.backends.ModelBackend',
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
-
-}
+   'rest_framework_social_oauth2.backends.DjangoOAuth2',
+   'oauth2_provider.backends.OAuth2Backend',
+   #'oauth2_provider.oauth2_backends.OauthLibCore'
+   'django.contrib.auth.backends.ModelBackend',
+)
