@@ -19,7 +19,7 @@ def updatesp():
     #table = dbf.Table(filename="D:/tvt/CONHEC.dbf", codepage="cp860")
     table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", codepage="cp860")
     table.open()
-    first = len(table)-100
+    first = len(table)-1000
     last = len(table)
     n_registros = 0
     for linha in table[first:last]:
