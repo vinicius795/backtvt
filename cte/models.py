@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 class CTE(models.Model):
 
@@ -9,6 +10,9 @@ class CTE(models.Model):
     VALOR = models.DecimalField(max_digits=11, decimal_places=2)
     VOLUMES = models.CharField(max_length=10)
     NFE = models.TextField()
+    date_add = models.DateTimeField(auto_now=True)
+    date_dispatch = models.DateTimeField(blank=True, null=True)
+    date_delivered = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = ''
