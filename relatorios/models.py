@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from funcionarios.models import CARGOS, FUNCIONARIOS, VEICULOS
 from cte.models import CTE
 from parametros.models import F_PAGAMENTO
+import datetime
 
 class Alteracoes(models.Model):
     alteracao = models.TextField()
@@ -25,6 +26,7 @@ class ENTREGA(models.Model):
     CTE_FPag = models.ManyToManyField(CTE_FPag, blank=True)
     ALTERACAO = models.ManyToManyField(Alteracoes, blank=True)
     printable = models.BooleanField(default=True)
+    date_closed = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.id

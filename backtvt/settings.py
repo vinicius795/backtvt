@@ -24,7 +24,7 @@ MEDIA_ROOT = "D:/Users/Vinicius P/Documents/sistematvt/files"
 SECRET_KEY = 'c0pzi13b)w%$@kwh5-d&_a12t0rph6n9aw(i!_z*gqzz11fyng'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -86,6 +86,12 @@ WSGI_APPLICATION = 'backtvt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+def db_name():
+    if DEBUG:
+        return "tvt_test"
+    return "tvt"
+
+
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -93,7 +99,7 @@ DATABASES = {
     # },
     'default':{
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tvt',
+        'NAME': db_name(),
         'PORT': '5432',
         'HOST': "localhost",
         'USER': "django",
@@ -143,12 +149,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/static/',
-]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -167,3 +167,5 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+STATIC_URL = '/static/'
