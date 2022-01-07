@@ -90,6 +90,10 @@ def db_name():
     if DEBUG:
         return "tvt_test"
     return "tvt"
+def db_host():
+    if DEBUG:
+        return "localhost"
+    return "localhost"
 
 
 DATABASES = {
@@ -101,7 +105,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': db_name(),
         'PORT': '5432',
-        'HOST': "localhost",
+        'HOST': db_host(),
         'USER': "django",
         'PASSWORD': "2eroVo08Wwtq",
 
@@ -141,8 +145,6 @@ TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 
@@ -169,3 +171,5 @@ SIMPLE_JWT = {
 }
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
