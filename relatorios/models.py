@@ -22,7 +22,7 @@ class ENTREGA(models.Model):
     VEICULO = models.ForeignKey(VEICULOS, on_delete=models.DO_NOTHING)
     FUNCIONARIOS = models.ManyToManyField(FuncaoFUNCIONARIOS)
     OBS = models.TextField(blank=True, default='', null=True)
-    DATA = models.DateTimeField(auto_now=True)
+    DATA = models.DateTimeField(auto_now_add=True)
     CTE_FPag = models.ManyToManyField(CTE_FPag, blank=True)
     ALTERACAO = models.ManyToManyField(Alteracoes, blank=True)
     printable = models.BooleanField(default=True)

@@ -9,6 +9,7 @@ app_name = 'relatorios'
 router = routers.DefaultRouter()
 router.register('today', viewsets.Today_reports)
 router.register('unclosed', viewsets.Report_n_closed)
+router.register('close', viewsets.Close_Report)
 
 urlpatterns = [
     path('entrega/<int:pk>', views.EntregaDetail.as_view()),

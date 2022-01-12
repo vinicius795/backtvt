@@ -7,5 +7,5 @@ from rest_framework import viewsets
 class Delayed_ctes(viewsets.ModelViewSet):
 
     permission_classes = (IsAuthenticated, IsAdminUser,)
-    queryset = CTE.objects.filter(date_delivered__isnull = True)
+    queryset = CTE.objects.filter(date_dispatch__isnull = True)
     serializer_class = CTESerializer

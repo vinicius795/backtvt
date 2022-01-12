@@ -1,3 +1,4 @@
+from django.db.models import fields
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from relatorios.models import *
@@ -7,6 +8,8 @@ from parametros.models import F_PAGAMENTO
 from funcionarios.serializers import CargoSerializer, FuncionariosSerializerList, VeiculosSerializer
 from cte.serializers import CTESerializer
 from parametros.serializers import F_PAGAMENTOSerializer
+from datetime import date
+
 
 class FuncaoFuncionarioSerializerRetriving(serializers.ModelSerializer):
   FUNCIONARIO = FuncionariosSerializerList()
@@ -92,17 +95,27 @@ class EntregaCreateSerializer(serializers.ModelSerializer):
             CTE=CTE.objects.get(pk=list(x.items())[0][1].id),
             F_PAGAMENTO = F_PAGAMENTO.objects.get(pk=list(x.items())[1][1].id)
           )
+        setctedate(CTE.objects.get(pk=list(x.items())[0][1].id))
         novo_relatorio.CTE_FPag.add(n_ctefpag)
       return novo_relatorio
       
     def update(self, instance, validated_data):
         pass
 
+def setctedate(cte: CTE):
+  cte.date_dispatch = date.today()
+  cte.save()
+
 class EntregaListSerializer(serializers.ModelSerializer):
   USUARIO = UserSerializer()
   class Meta:
     model = ENTREGA
-    fields = ["id", 'USUARIO', "DATA"]
+    fields = ["id", 'USUARIO', "DATA", "date_closed"]
+
+class OpenReports(serializers.ModelSerializer):
+  class Meta:
+    model = ENTREGA
+    fields = ['id', "date_closed"]
 
 
 {
