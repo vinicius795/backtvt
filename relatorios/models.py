@@ -18,7 +18,7 @@ class FuncaoFUNCIONARIOS(models.Model):
 
 class ENTREGA(models.Model):
 
-    USUARIO = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    USUARIO = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="user")
     VEICULO = models.ForeignKey(VEICULOS, on_delete=models.DO_NOTHING)
     FUNCIONARIOS = models.ManyToManyField(FuncaoFUNCIONARIOS)
     OBS = models.TextField(blank=True, default='', null=True)
@@ -27,9 +27,10 @@ class ENTREGA(models.Model):
     ALTERACAO = models.ManyToManyField(Alteracoes, blank=True)
     printable = models.BooleanField(default=True)
     date_closed = models.DateTimeField(blank=True, null=True)
+    who_close = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, related_name="wclose")
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     class Meta:
         db_table = ''
