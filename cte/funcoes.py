@@ -1,20 +1,28 @@
 from cte.models import *
 from cte.serializers import *
+from backtvt.settings import DEBUG
 
 from parametros.models import Parametros
 
 from relatorios.funcoes import checknotfound
 from datetime import datetime
 
+
+import json
 import dbf
+import os
+import time
+
 
 def updatesp():
     serializer_class = CTESerializer()
-    #table = dbf.Table(filename="E:/tvt/CONHEC.dbf", codepage="cp860")
-    #table = dbf.Table(filename="D:/tvt/CONHEC.dbf", codepage="cp860")
-    table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", codepage="cp860")
+    table = ""
+    if DEBUG:
+        table = dbf.Table(filename=r'\\10.1.1.110\db\CONHEC.dbf', codepage="cp860")
+    else:
+        table = dbf.Table(filename="/mnt/servidor/db/CONHEC.dbf", codepage="cp860")
     table.open()
-    first = len(table)-1000
+    first = len(table)-100
     last = len(table)
     n_registros = 0
     for linha in table[first:last]:
