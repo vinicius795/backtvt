@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from funcionarios.models import CARGOS, FUNCIONARIOS, VEICULOS
 from cte.models import CTE
 from parametros.models import F_PAGAMENTO
+import datetime
 
 class Alteracoes(models.Model):
     alteracao = models.TextField()
@@ -17,17 +18,19 @@ class FuncaoFUNCIONARIOS(models.Model):
 
 class ENTREGA(models.Model):
 
-    USUARIO = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    USUARIO = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="user")
     VEICULO = models.ForeignKey(VEICULOS, on_delete=models.DO_NOTHING)
     FUNCIONARIOS = models.ManyToManyField(FuncaoFUNCIONARIOS)
     OBS = models.TextField(blank=True, default='', null=True)
-    DATA = models.DateTimeField(auto_now=True)
+    DATA = models.DateTimeField(auto_now_add=True)
     CTE_FPag = models.ManyToManyField(CTE_FPag, blank=True)
     ALTERACAO = models.ManyToManyField(Alteracoes, blank=True)
     printable = models.BooleanField(default=True)
+    date_closed = models.DateTimeField(blank=True, null=True)
+    who_close = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, related_name="wclose")
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     class Meta:
         db_table = ''

@@ -6,12 +6,7 @@ from parametros.models import Parametros
 from relatorios.funcoes import checknotfound
 from datetime import datetime
 
-
-import json
 import dbf
-import os
-import time
-
 
 def updatesp():
     serializer_class = CTESerializer()

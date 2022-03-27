@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.timezone import now
+from django.db.utils import IntegrityError
 
 class CTE(models.Model):
 
@@ -23,7 +23,6 @@ class CTE(models.Model):
 
 
 class Addcte:
-    from django.db import IntegrityError
 
     def __init__(self, cte, remetente, destinatario, nrcontrole, valor, nfe):
         try:
