@@ -358,3 +358,6 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/angular,django,python,vscode,node
 runserver.bat
 pubkey
+tvtvenv/*
+tvtvenv/Scripts/pip3.exe
+README.md

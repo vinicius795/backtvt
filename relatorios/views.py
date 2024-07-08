@@ -24,7 +24,7 @@ class EntregaList(generics.ListAPIView):
     queryset = ENTREGA.objects.all()
     serializer_class = EntregaListSerializer
 
-@api_view(['GET', 'POST', 'UPDATE'])
+# @api_view(['GET', 'POST', 'UPDATE'])
 @permission_classes([IsAuthenticated])
 def missingcte(request):
     if request.method == 'POST':

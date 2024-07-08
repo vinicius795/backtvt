@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\Vinicius P\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "off"
 }
